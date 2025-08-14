@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Archivos de datos temporales
+data/
+chroma_db/
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+
+# Archivos de entorno
+.env
+.env.local
+
+# Docker
+docker-compose.override.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Test files temporales
+test_*.py
+demo_*.py
+*_test.py
