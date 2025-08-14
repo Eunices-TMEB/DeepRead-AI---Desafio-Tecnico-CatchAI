@@ -231,35 +231,4 @@ docker-compose exec catchai bash
 | **Modelos** | 🦙 Llama 3.1 70B | 🤖 GPT-4 |
 | **Privacidad** | 🔒 Respeta datos | ❓ Menos claro |
 
-## 🤝 Contribuciones
 
-¡Contribuciones bienvenidas! 
-
-1. Fork el proyecto
-2. Crea una branch (`git checkout -b feature/mejora`)
-3. Commit cambios (`git commit -m 'Agregar mejora'`)
-4. Push a la branch (`git push origin feature/mejora`)
-5. Abre un Pull Request
-
-## 📜 Licencia
-
-MIT License - Libre para uso comercial y personal.
-
-## 🙏 Agradecimientos
-
-- **Groq**: Por la increíble velocidad de inferencia
-- **Meta**: Por Llama 3.1 de código abierto
-- **ChromaDB**: Por la base de datos vectorial
-- **Streamlit**: Por la interfaz web fácil de usar
-
----
-
-<div align="center">
-
-**🚀 ¡Disfruta analizando tus documentos con IA de última generación! 🚀**
-
-[![Groq](https://img.shields.io/badge/Powered%20by-Groq-FF6B6B?style=for-the-badge)](https://groq.com/)
-[![Llama](https://img.shields.io/badge/Model-Llama%203.1%2070B-4ECDC4?style=for-the-badge)](https://llama.meta.com/)
-[![Streamlit](https://img.shields.io/badge/Interface-Streamlit-FF4B4B?style=for-the-badge)](https://streamlit.io/)
-
-</div>
