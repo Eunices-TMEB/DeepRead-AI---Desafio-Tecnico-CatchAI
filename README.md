@@ -23,7 +23,7 @@ Un sistema avanzado de análisis conversacional de documentos PDF usando **Groq 
 
 ## 📦 Instalación
 
-### 🐳 Opción 1: Con Docker (Recomendado para pruebas técnicas)
+### 🐳 Opción 1: Con Docker 
 
 ```bash
 cd groq_system
