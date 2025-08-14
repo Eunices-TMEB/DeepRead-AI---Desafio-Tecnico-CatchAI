@@ -1,4 +1,4 @@
-# Dockerfile para CatchAI v2.0 con Groq
+# Dockerfile para DeepRead AI - Desafío Técnico CatchAI
 FROM python:3.11-slim
 
 # Establecer directorio de trabajo
@@ -9,14 +9,21 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     curl \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar archivos de dependencias
+# Copiar archivos de dependencias (con fallback)
 COPY requirements.txt .
+COPY requirements_simple.txt ./requirements_simple.txt
 
-# Instalar dependencias de Python
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# Actualizar pip e instalar wheel
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Instalar dependencias con fallback robusto
+RUN pip install --no-cache-dir -r requirements.txt || \
+    pip install --no-cache-dir -r requirements_simple.txt || \
+    (pip install streamlit groq python-dotenv PyPDF2 pdfplumber pandas plotly && \
+     pip install chromadb sentence-transformers langchain --no-deps)
 
 # Copiar código fuente
 COPY . .

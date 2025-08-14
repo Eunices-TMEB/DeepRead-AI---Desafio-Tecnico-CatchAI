@@ -1,10 +1,12 @@
 services:
-  # Servicio principal de CatchAI
-  catchai:
+  # DeepRead AI - Aplicación principal
+  deepread-ai:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: catchai-groq
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    container_name: deepread-ai-main
     ports:
       - "8501:8501"
     volumes:
@@ -12,60 +14,29 @@ services:
       - ./chroma_db:/app/chroma_db
       # Persistir datos de sesión
       - ./data:/app/data
-      # Persistir logs
-      - ./logs:/app/logs
     environment:
-      # Variables de entorno desde archivo .env
-      - GROQ_API_KEY=${GROQ_API_KEY}
-      - GROQ_MODEL=${GROQ_MODEL:-llama3-70b-8192}
-      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
-      - COLLECTION_NAME=${COLLECTION_NAME:-pdf_documents}
-      - CHUNK_SIZE=${CHUNK_SIZE:-1000}
-      - CHUNK_OVERLAP=${CHUNK_OVERLAP:-100}
-      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-40}
-      - MAX_TOTAL_SIZE_MB=${MAX_TOTAL_SIZE_MB:-200}
-      - MAX_FILES=${MAX_FILES:-5}
-      - PAGE_TITLE=${PAGE_TITLE:-CatchAI - Copiloto PDF}
-      - PAGE_ICON=${PAGE_ICON:-📚}
+      # Variables críticas
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - PYTHONPATH=/app
       - STREAMLIT_SERVER_PORT=8501
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      # Configuración optimizada
+      - STREAMLIT_THEME_BASE=light
+      - STREAMLIT_SERVER_ENABLE_CORS=false
+      - STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
     env_file:
       - .env
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8501/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 60s
+      retries: 5
+      start_period: 40s
     networks:
-      - catchai-network
+      - deepread-network
 
-  # Servicio opcional: ChromaDB independiente (si quieres separar la DB)
-  chromadb:
-    image: chromadb/chroma:latest
-    container_name: catchai-chromadb
-    ports:
-      - "8000:8000"
-    volumes:
-      - chroma_data:/chroma/chroma
-    environment:
-      - CHROMA_SERVER_HOST=0.0.0.0
-      - CHROMA_SERVER_HTTP_PORT=8000
-      - ANONYMIZED_TELEMETRY=False
-    restart: unless-stopped
-    networks:
-      - catchai-network
-    profiles:
-      - chromadb-external  # Solo se ejecuta si se especifica el profile
-
-# Volúmenes para persistencia
-volumes:
-  chroma_data:
-    driver: local
-
-# Red para comunicación entre servicios
+# Red para comunicación (simplificada)
 networks:
-  catchai-network:
+  deepread-network:
     driver: bridge
-    name: catchai-network
