@@ -24,22 +24,22 @@ Un sistema avanzado de análisis conversacional de documentos PDF usando **Groq 
 ## 📦 Instalación
 
 ### 🐳 Opción 1: Con Docker 
-
 ```bash
+# 1. Clonar repositorio
+git clone
 cd groq_system
 
-# 1. Configurar API Key
+# 2. Configurar API key
 cp env.example .env
-# Editar .env y agregar: GROQ_API_KEY=gsk_tu_api_key_aqui
+# Editar .env y cambiar: GROQ_API_KEY=su_api_key_real
 
-# 2. Ejecutar con script automático
-./scripts/start.sh
+# 3. Ejecutar con Docker
+docker-compose up --build
 
-# O manualmente:
-docker-compose up --build -d
-```
+# 4. Acceder a http://localhost:8501
 
 **Acceso:** http://localhost:8501
+```
 
 ### 💻 Opción 2: Instalación Local
 
